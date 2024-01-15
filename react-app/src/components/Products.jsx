@@ -9,26 +9,28 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Products = ({ cat, filters, sort }) => {
+const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  console.log("products component",{ category, filters, sort })
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await axios.get(
-          cat
-            ? `http://localhost:4000/api/products?category=${cat}`
+          category
+            ? `http://localhost:4000/api/products?category=${category}`
             : "http://localhost:4000/api/products"
         );
         setProducts(res.data);
       } catch (err) {}
     };
     getProducts();
-  }, [cat]);
+  }, [category]);
 
   useEffect(() => {
-    cat &&
+    category &&
       setFilteredProducts(
         products.filter((item) =>
           Object.entries(filters).every(([key, value]) =>
@@ -36,7 +38,7 @@ const Products = ({ cat, filters, sort }) => {
           )
         )
       );
-  }, [products, cat, filters]);
+  }, [products, category, filters]);
 
   useEffect(() => {
     if (sort === "newest") {
@@ -55,7 +57,7 @@ const Products = ({ cat, filters, sort }) => {
   }, [sort]);
   return (
     <Container>
-      {cat
+      {category
         ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
         : products
             .slice(0, 8)

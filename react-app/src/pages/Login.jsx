@@ -11,7 +11,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://i.pinimg.com/736x/7b/c3/e4/7bc3e4b533d314b8db67d84e82481486.jpg")
       center;
   background-size: cover;
   display: flex;
