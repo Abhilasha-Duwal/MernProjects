@@ -130,6 +130,8 @@ const Product = () => {
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
 
+  console.log("single product", color);
+
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -149,9 +151,7 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    dispatch(
-      addProduct({...product, quantity, color, size})
-    );
+    dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
   return (
@@ -169,15 +169,15 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {product.color?.map((c) => (
-                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+              {product.color?.map((color,index) => (
+                <FilterColor color={color} key={index} onClick={() => setColor(color)} />
               ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                {product.size?.map((size, index) => (
+                  <FilterSizeOption key={index}>{size}</FilterSizeOption>
                 ))}
               </FilterSize>
             </Filter>

@@ -3,6 +3,8 @@ import Product from "./Product";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 const Container = styled.div`
   padding: 20px;
   display: flex;
@@ -20,8 +22,8 @@ const Products = ({ category, filters, sort }) => {
       try {
         const res = await axios.get(
           category
-            ? `http://localhost:4000/api/products?category=${category}`
-            : "http://localhost:4000/api/products"
+            ? `${BASE_URL}/products?category=${category}`
+            : `${BASE_URL}/products`
         );
         setProducts(res.data);
       } catch (err) {}
