@@ -4,7 +4,8 @@ import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { user } from "../requestMethods";
 
 const Container = styled.div`
   height: 60px;
@@ -69,8 +70,25 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const Button = styled.button`
+  border: none;
+  padding: 5px 10px;
+  background-color: teal;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 25px;
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+`;
+
 const Navbar = () => {
+  const navigate = useNavigate();
   const quantity = useSelector((state) => state.cart.quantity);
+
+  const onLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <Container>
@@ -89,9 +107,13 @@ const Navbar = () => {
           <Link to={`/register`}>
             <MenuItem>REGISTER</MenuItem>
           </Link>
-          <Link to={`/login`}>
-            <MenuItem>SIGN IN</MenuItem>
-          </Link>
+          {user ? (
+            <Button onClick={onLogout}>Logout</Button>
+          ) : (
+            <Link to={`/login`}>
+              <MenuItem>SIGN IN</MenuItem>
+            </Link>
+          )}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
