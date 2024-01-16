@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { user } from "../requestMethods";
 
 const Container = styled.div`
   height: 60px;
@@ -82,6 +81,7 @@ const Button = styled.button`
 `;
 
 const Navbar = () => {
+  const user = JSON.parse(localStorage.getItem("persist:root"));
   const navigate = useNavigate();
   const quantity = useSelector((state) => state.cart.quantity);
 
