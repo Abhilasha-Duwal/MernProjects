@@ -3,8 +3,9 @@ import { Badge } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../redux/userRedux";
 
 const Container = styled.div`
   height: 60px;
@@ -81,12 +82,15 @@ const Button = styled.button`
 `;
 
 const Navbar = () => {
-  const user = JSON.parse(localStorage.getItem("persist:root"));
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const quantity = useSelector((state) => state.cart.quantity);
+  const isLogin = useSelector((state)=> state.user.currentUser?.username);
+
+  console.log("isloging",isLogin)
 
   const onLogout = () => {
-    localStorage.clear();
+    dispatch(logout());
     navigate("/");
   };
 
@@ -107,7 +111,7 @@ const Navbar = () => {
           <Link to={`/register`}>
             <MenuItem>REGISTER</MenuItem>
           </Link>
-          {user ? (
+          {isLogin ? (
             <Button onClick={onLogout}>Logout</Button>
           ) : (
             <Link to={`/login`}>

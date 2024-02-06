@@ -2,7 +2,6 @@ const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
 const { connectMongoDb } = require("./connection");
-const { logReqRes } = require("./middlewares");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 const productRouter = require("./routes/product");
@@ -30,7 +29,6 @@ app.set("views", path.resolve("./views"));
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(logReqRes("log.text"));
 
 // Routes
 app.use("/api/auth", authRouter);
